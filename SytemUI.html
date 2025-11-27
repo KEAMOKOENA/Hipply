@@ -1,0 +1,52 @@
+<!-- save as prank.html and open in a browser -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>System Alert</title>
+  <style>
+    html,body { height:100%; margin:0; font-family: Arial, sans-serif; }
+    .screen {
+      display:flex; align-items:center; justify-content:center;
+      height:100vh; color:white; text-align:center;
+      flex-direction:column; transition: background 0.6s;
+    }
+    .scary { background: radial-gradient(circle, #7f0000, #220000); }
+    .reveal { background: linear-gradient(45deg,#2b8aef,#2be6a1); color:#111; }
+    h1{ font-size: clamp(24px, 6vw, 64px); margin:8px; }
+    p{ font-size: clamp(14px, 3vw, 22px); margin:6px 12px; }
+    button{ padding:10px 18px; font-size:16px; border-radius:8px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div id="box" class="screen scary">
+    <h1 id="title">SECURITY BREACH</h1>
+    <p id="msg">Unauthorized access detected. All files will be locked in 10 seconds.</p>
+    <p style="font-size:12px; opacity:0.9;">(All cache files have been tempered with)</p>
+  </div>
+
+  <script>
+    console.log("print: launching prank (for fun).");
+    // After 3.5 seconds reveal the joke
+    setTimeout(()=> {
+      const b = document.getElementById('box');
+      b.className = 'screen reveal';
+      document.getElementById('title').innerText = "Immediate action is required to avoid data loss";
+      document.getElementById('rick').onclick = ()=> {
+        // opens rickroll in new tab - remove if you don't want this
+        window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blank');
+      };
+      // Optional: auto-close after a bit
+      setTimeout(()=>{ /* do nothing more so the person sees the reveal */ }, 2000);
+    }, 3500);
+
+    // Make the page try to request fullscreen for dramatic effect when user interacts:
+    document.addEventListener('click', function goFS() {
+      document.removeEventListener('click', goFS);
+      const el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+    });
+  </script>
+</body>
+</html>
